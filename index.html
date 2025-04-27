@@ -8,45 +8,44 @@
     body {
       font-family: Arial, sans-serif;
       padding: 2rem;
-      background-color: #f9f9f9;
+      background-color: #f0f2f5;
     }
     h1 {
       text-align: center;
-      margin-bottom: 2rem;
     }
     form {
-      max-width: 400px;
-      margin: 0 auto;
       background: white;
+      max-width: 500px;
+      margin: 2rem auto;
       padding: 2rem;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     label {
-      display: block;
-      margin-bottom: 0.5rem;
       margin-top: 1rem;
+      display: block;
+      font-weight: bold;
     }
     input, select, textarea {
       width: 100%;
       padding: 0.5rem;
-      margin-top: 0.25rem;
+      margin-top: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
     button {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       width: 100%;
       padding: 0.75rem;
-      background-color: #4CAF50;
+      background-color: #28a745;
       color: white;
+      font-size: 1rem;
       border: none;
       border-radius: 4px;
-      font-size: 1rem;
       cursor: pointer;
     }
     button:hover {
-      background-color: #45a049;
+      background-color: #218838;
     }
     .message {
       text-align: center;
@@ -59,11 +58,12 @@
 <body>
 
 <h1>Form Keuangan</h1>
-<form id="form-keuangan">
-  <label for="tanggal">Tanggal:</label>
+
+<form id="keuangan-form">
+  <label for="tanggal">Tanggal</label>
   <input type="date" id="tanggal" name="tanggal" required>
 
-  <label for="kategori">Kategori:</label>
+  <label for="kategori">Kategori</label>
   <select id="kategori" name="kategori" required>
     <option value="">-- Pilih Kategori --</option>
     <option value="Pemasukan">Pemasukan</option>
@@ -71,20 +71,20 @@
     <option value="Saving">Saving</option>
   </select>
 
-  <label for="nominal">Nominal:</label>
+  <label for="nominal">Nominal</label>
   <input type="number" id="nominal" name="nominal" required>
 
-  <label for="keterangan">Keterangan:</label>
-  <textarea id="keterangan" name="keterangan" rows="4"></textarea>
+  <label for="keterangan">Keterangan</label>
+  <textarea id="keterangan" name="keterangan" rows="3"></textarea>
 
-  <button type="submit">Kirim</button>
+  <button type="submit">Submit</button>
 </form>
 
 <div class="message" id="message"></div>
 
 <script>
   const scriptURL = 'https://script.google.com/macros/s/AKfycbyKWi7WUoCb9rFcHrOjfFmaAKbzwsdNZldBlQyGc_eDZoC9AO2KX7vB4_dP8ZW_kCRVgw/exec';
-  const form = document.getElementById('form-keuangan');
+  const form = document.getElementById('keuangan-form');
   const message = document.getElementById('message');
 
   form.addEventListener('submit', e => {
@@ -94,13 +94,18 @@
     const formData = new FormData(form);
 
     fetch(scriptURL, { method: 'POST', body: formData })
-      .then(response => {
-        message.textContent = 'Data berhasil dikirim!';
-        form.reset();
+      .then(response => response.text())
+      .then(text => {
+        if (text === 'Success') {
+          message.textContent = 'Data berhasil dikirim!';
+          form.reset();
+        } else {
+          message.textContent = 'Gagal mengirim data!';
+        }
       })
       .catch(error => {
         console.error('Error!', error.message);
-        message.textContent = 'Terjadi kesalahan saat mengirim data.';
+        message.textContent = 'Terjadi error saat mengirim data!';
       });
   });
 </script>
