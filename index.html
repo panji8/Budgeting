@@ -1,112 +1,109 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Keuangan</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 2rem;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            margin-top: 1rem;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 0.5rem;
-            margin-top: 0.25rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            margin-top: 1.5rem;
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .message {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 1rem;
-            color: green;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Keuangan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .message {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: green;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Form Keuangan</h1>
-    <form id="form-keuangan">
-        <label for="tanggal">Tanggal:</label>
-        <input type="date" id="tanggal" name="tanggal" required>
+<h1>Form Keuangan</h1>
+<form id="form-keuangan">
+  <label for="tanggal">Tanggal:</label>
+  <input type="date" id="tanggal" name="tanggal" required>
 
-        <label for="kategori">Kategori:</label>
-        <select id="kategori" name="kategori" required>
-            <option value="">-- Pilih Kategori --</option>
-            <option value="Pemasukan">Pemasukan</option>
-            <option value="Pengeluaran">Pengeluaran</option>
-            <option value="Saving">Saving</option>
-        </select>
+  <label for="kategori">Kategori:</label>
+  <select id="kategori" name="kategori" required>
+    <option value="">-- Pilih Kategori --</option>
+    <option value="Pemasukan">Pemasukan</option>
+    <option value="Pengeluaran">Pengeluaran</option>
+    <option value="Saving">Saving</option>
+  </select>
 
-        <label for="nominal">Nominal:</label>
-        <input type="number" id="nominal" name="nominal" required>
+  <label for="nominal">Nominal:</label>
+  <input type="number" id="nominal" name="nominal" required>
 
-        <label for="keterangan">Keterangan:</label>
-        <textarea id="keterangan" name="keterangan" rows="4"></textarea>
+  <label for="keterangan">Keterangan:</label>
+  <textarea id="keterangan" name="keterangan" rows="4"></textarea>
 
-        <button type="submit">Kirim</button>
-    </form>
+  <button type="submit">Kirim</button>
+</form>
 
-    <div class="message" id="message"></div>
+<div class="message" id="message"></div>
 
-    <script>
-        const scriptURL = 'SOON'; // nanti ganti ke URL Web App kamu
-        const form = document.getElementById('form-keuangan');
-        const message = document.getElementById('message');
+<script>
+  const scriptURL = 'LINK_WEB_APP_KAMU'; // Ganti dengan Web App URL kamu
+  const form = document.getElementById('form-keuangan');
+  const message = document.getElementById('message');
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            message.textContent = 'Mengirim...';
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    message.textContent = 'Mengirim...';
 
-            const formData = new FormData(form);
+    const formData = new FormData(form);
 
-            fetch(scriptURL, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                message.textContent = 'Data berhasil dikirim!';
-                form.reset();
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                message.textContent = 'Terjadi kesalahan saat mengirim data.';
-            });
-        });
-    </script>
+    fetch(scriptURL, { method: 'POST', body: formData })
+      .then(response => {
+        message.textContent = 'Data berhasil dikirim!';
+        form.reset();
+      })
+      .catch(error => {
+        console.error('Error!', error.message);
+        message.textContent = 'Terjadi kesalahan saat mengirim data.';
+      });
+  });
+</script>
 
 </body>
 </html>
