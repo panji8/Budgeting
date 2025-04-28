@@ -2,111 +2,92 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Keuangan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form Budget Planner</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 2rem;
-      background-color: #f0f2f5;
-    }
-    h1 {
-      text-align: center;
+      margin: 40px;
+      background-color: #f4f4f4;
     }
     form {
-      background: white;
-      max-width: 500px;
-      margin: 2rem auto;
-      padding: 2rem;
+      background: #fff;
+      padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-    label {
-      margin-top: 1rem;
-      display: block;
-      font-weight: bold;
-    }
-    input, select, textarea {
+    input, select, button {
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      border-radius: 4px;
     }
     button {
-      margin-top: 2rem;
-      width: 100%;
-      padding: 0.75rem;
       background-color: #28a745;
       color: white;
-      font-size: 1rem;
       border: none;
-      border-radius: 4px;
       cursor: pointer;
     }
     button:hover {
       background-color: #218838;
     }
-    .message {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 1rem;
-      color: green;
-    }
   </style>
 </head>
 <body>
 
-<h1>Form Keuangan</h1>
+<h2 style="text-align:center;">Form Budget Planner</h2>
 
-<form id="keuangan-form">
-  <label for="tanggal">Tanggal</label>
+<form id="budgetForm">
+  <label for="tanggal">Tanggal:</label>
   <input type="date" id="tanggal" name="tanggal" required>
 
-  <label for="kategori">Kategori</label>
-  <select id="kategori" name="kategori" required>
-    <option value="">-- Pilih Kategori --</option>
+  <label for="jenis">Jenis:</label>
+  <select id="jenis" name="jenis" required>
+    <option value="">Pilih Jenis</option>
     <option value="Pemasukan">Pemasukan</option>
     <option value="Pengeluaran">Pengeluaran</option>
     <option value="Saving">Saving</option>
   </select>
 
-  <label for="nominal">Nominal</label>
+  <label for="nominal">Nominal:</label>
   <input type="number" id="nominal" name="nominal" required>
 
-  <label for="keterangan">Keterangan</label>
-  <textarea id="keterangan" name="keterangan" rows="3"></textarea>
+  <label for="keterangan">Keterangan:</label>
+  <input type="text" id="keterangan" name="keterangan" required>
 
   <button type="submit">Submit</button>
 </form>
 
-<div class="message" id="message"></div>
-
 <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxP5j9ok5NTBhFmUnJ2GROSxF2MBU8OrcMzMP9q5RV3F1ODxPyZi2hKiLS5O57eDa1i/exec';
-  const form = document.getElementById('keuangan-form');
-  const message = document.getElementById('message');
-
-  form.addEventListener('submit', e => {
+  document.getElementById('budgetForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    message.textContent = 'Mengirim...';
-
-    const formData = new FormData(form);
-
-    fetch(scriptURL, { method: 'POST', body: formData })
-      .then(response => response.text())
-      .then(text => {
-        if (text === 'Success') {
-          message.textContent = 'Data berhasil dikirim!';
-          form.reset();
-        } else {
-          message.textContent = 'Gagal mengirim data!';
-        }
-      })
-      .catch(error => {
-        console.error('Error!', error.message);
-        message.textContent = 'Terjadi error saat mengirim data!';
-      });
+    
+    var data = {
+      tanggal: document.getElementById('tanggal').value,
+      jenis: document.getElementById('jenis').value,
+      nominal: document.getElementById('nominal').value,
+      keterangan: document.getElementById('keterangan').value
+    };
+    
+    fetch('https://script.google.com/macros/s/AKfycbzaEH796i5Q3S2CULxR38p5eSvJOzOW5l2bOrrCR42A8PPJiSx-HWA3FxRgWs0ypB_UKA/exec', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.text())
+    .then(result => {
+      alert('Data berhasil dikirim!');
+      document.getElementById('budgetForm').reset();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Terjadi error saat mengirim data!');
+    });
   });
 </script>
 
