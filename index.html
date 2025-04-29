@@ -40,56 +40,26 @@
 
 <h2 style="text-align:center;">Form Budget Planner</h2>
 
-<form id="budgetForm">
-  <label for="tanggal">Tanggal:</label>
-  <input type="date" id="tanggal" name="tanggal" required>
+<form id="budgetForm" method="POST" action="https://script.google.com/macros/s/AKfycbygdVcrTTLLbzIBH_XsBUKg77Ljs-M7GUOORd1oxMKoTQfNI4Rps1I8vZAbbicuuWVLHQ/exec">
+  <label for="Tanggal">Tanggal:</label>
+  <input type="date" id="Tanggal" name="Tanggal" required>
 
-  <label for="jenis">Jenis:</label>
-  <select id="jenis" name="jenis" required>
+  <label for="Jenis">Jenis:</label>
+  <select id="Jenis" name="Jenis" required>
     <option value="">Pilih Jenis</option>
     <option value="Pemasukan">Pemasukan</option>
     <option value="Pengeluaran">Pengeluaran</option>
     <option value="Saving">Saving</option>
   </select>
 
-  <label for="nominal">Nominal:</label>
-  <input type="number" id="nominal" name="nominal" required>
+  <label for="Nominal">Nominal:</label>
+  <input type="number" id="Nominal" name="Nominal" required>
 
-  <label for="keterangan">Keterangan:</label>
-  <input type="text" id="keterangan" name="keterangan" required>
+  <label for="Note">Keterangan:</label>
+  <input type="text" id="Note" name="Note" required>
 
   <button type="submit">Submit</button>
 </form>
-
-<script>
-  document.getElementById('budgetForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    var data = {
-      tanggal: document.getElementById('tanggal').value,
-      jenis: document.getElementById('jenis').value,
-      nominal: document.getElementById('nominal').value,
-      keterangan: document.getElementById('keterangan').value
-    };
-    
-    fetch('https://script.google.com/macros/s/AKfycbzaEH796i5Q3S2CULxR38p5eSvJOzOW5l2bOrrCR42A8PPJiSx-HWA3FxRgWs0ypB_UKA/exec', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.text())
-    .then(result => {
-      alert('Data berhasil dikirim!');
-      document.getElementById('budgetForm').reset();
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Terjadi error saat mengirim data!');
-    });
-  });
-</script>
 
 </body>
 </html>
